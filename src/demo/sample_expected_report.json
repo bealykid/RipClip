@@ -1,0 +1,111 @@
+{
+  "clipId": "demo-clip-001",
+  "durationSec": 30,
+  "ripScore": 90,
+  "metrics": [
+    {
+      "id": "hook",
+      "label": "Hook",
+      "score": 95
+    },
+    {
+      "id": "pacing",
+      "label": "Pacing",
+      "score": 86
+    },
+    {
+      "id": "captions",
+      "label": "Captions",
+      "score": 92
+    },
+    {
+      "id": "audio",
+      "label": "Audio",
+      "score": 78
+    },
+    {
+      "id": "virality",
+      "label": "Virality",
+      "score": 84
+    },
+    {
+      "id": "retention",
+      "label": "Retention @10s",
+      "score": 80
+    },
+    {
+      "id": "platform",
+      "label": "Platform Fit",
+      "score": 89
+    },
+    {
+      "id": "structure",
+      "label": "Structure",
+      "score": 87
+    }
+  ],
+  "timelineMarkers": [
+    {
+      "t": 0.6,
+      "severity": "strong",
+      "metric": "hook",
+      "title": "Instant motion & premise",
+      "note": "Hook lands in first second; clear promise"
+    },
+    {
+      "t": 4.0,
+      "severity": "critical",
+      "metric": "pacing",
+      "title": "Logo freeze",
+      "note": "Trim ~0.5s at 0:04 to keep momentum"
+    },
+    {
+      "t": 8.0,
+      "severity": "strong",
+      "metric": "pacing",
+      "title": "Beat-synced cut",
+      "note": "Cut aligns with beat \u2014 keep"
+    },
+    {
+      "t": 10.2,
+      "severity": "attention",
+      "metric": "audio",
+      "title": "Silence gap",
+      "note": "Fill with room tone or tighten cut"
+    },
+    {
+      "t": 12.1,
+      "severity": "attention",
+      "metric": "audio",
+      "title": "VO under music",
+      "note": "Raise VO +2 dB from 0:12\u20130:13"
+    },
+    {
+      "t": 25.0,
+      "severity": "critical",
+      "metric": "retention",
+      "title": "Drop\u2011off risk",
+      "note": "Move CTA before 0:22 to retain viewers"
+    }
+  ],
+  "aiSummary": {
+    "oneLiner": "Strong hook & captions; trim logo freeze and fix VO dip to push into 90+.",
+    "topFixes": [
+      {
+        "t": 4.0,
+        "action": "Trim logo by ~0.5s",
+        "impact": "+2 RipScore"
+      },
+      {
+        "t": 12.1,
+        "action": "Raise VO +2 dB for 1s",
+        "impact": "+1 RipScore"
+      },
+      {
+        "t": 25.0,
+        "action": "Insert CTA at ~0:20\u20130:22",
+        "impact": "+2 RipScore"
+      }
+    ]
+  }
+}

@@ -1,0 +1,568 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* RipClip Custom Colors */
+  --ripclip-cyan: oklch(0.7 0.2 200);
+  --ripclip-purple: oklch(0.6 0.25 280);
+  --ripclip-magenta: oklch(0.65 0.3 320);
+  --ripclip-sunrise: oklch(0.75 0.2 50);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: var(--ripclip-cyan);
+  --primary-foreground: oklch(0.145 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--ripclip-cyan);
+  --chart-1: var(--ripclip-cyan);
+  --chart-2: var(--ripclip-purple);
+  --chart-3: var(--ripclip-magenta);
+  --chart-4: var(--ripclip-sunrise);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--ripclip-cyan);
+  --sidebar-primary-foreground: oklch(0.145 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: var(--ripclip-cyan);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* RipClip Custom Styles */
+.ripclip-logo {
+  background: linear-gradient(135deg, var(--ripclip-cyan), var(--ripclip-purple), var(--ripclip-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 1.25rem;
+  animation: logoGlow 3s ease-in-out infinite alternate;
+}
+
+.bg-gradient-ripclip {
+  background: linear-gradient(135deg, var(--ripclip-cyan), var(--ripclip-purple), var(--ripclip-magenta));
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+.bg-gradient-ripclip-subtle {
+  background: linear-gradient(135deg, 
+    oklch(from var(--ripclip-cyan) l c h / 0.1), 
+    oklch(from var(--ripclip-purple) l c h / 0.1), 
+    oklch(from var(--ripclip-magenta) l c h / 0.1)
+  );
+}
+
+.text-ripclip-cyan { color: var(--ripclip-cyan); }
+.text-ripclip-purple { color: var(--ripclip-purple); }
+.text-ripclip-magenta { color: var(--ripclip-magenta); }
+.text-ripclip-sunrise { color: var(--ripclip-sunrise); }
+
+/* Premium Animations */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Button hover effects */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-premium:hover::before {
+  left: 100%;
+}
+
+/* Score ring animations */
+.score-ring {
+  animation: scoreReveal 1.5s ease-out;
+}
+
+/* Timeline marker animations */
+.timeline-marker {
+  animation: markerPop 0.3s ease-out;
+}
+
+.timeline-marker:hover {
+  animation: markerBounce 0.6s ease-in-out;
+}
+
+/* Keyframe definitions */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--ripclip-cyan);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--ripclip-cyan), 0 0 30px var(--ripclip-cyan);
+  }
+}
+
+@keyframes logoGlow {
+  0% {
+    filter: brightness(1);
+  }
+  100% {
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes scoreReveal {
+  from {
+    stroke-dashoffset: 100%;
+  }
+  to {
+    stroke-dashoffset: var(--final-offset);
+  }
+}
+
+@keyframes markerPop {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes markerBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-3px);
+  }
+  60% {
+    transform: translateY(-1px);
+  }
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, 
+    oklch(0.269 0 0) 25%, 
+    oklch(0.3 0 0) 50%, 
+    oklch(0.269 0 0) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, .interactive {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus states */
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--ripclip-cyan);
+  outline-offset: 2px;
+}
+
+/* Premium scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ripclip-cyan);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ripclip-purple);
+}
+
+
+
+/* Timeline Marker Animations */
+.hitbox:hover .diamond {
+  transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+}
+
+.pulse-marker .diamond {
+  animation: pulse-marker 0.6s ease-out;
+}
+
+@keyframes pulse-marker {
+  0% { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+  50% { transform: translate(-50%, -50%) rotate(45deg) scale(1.3); }
+  100% { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+}
+
+.highlight-flash {
+  animation: highlight-flash 1.5s ease-out;
+}
+
+@keyframes highlight-flash {
+  0% { background-color: rgba(59, 130, 246, 0.1); }
+  50% { background-color: rgba(59, 130, 246, 0.3); }
+  100% { background-color: transparent; }
+}
+
+/* Timeline specific styles */
+.timeline {
+  position: relative;
+  height: 28px;
+  margin-bottom: 24px;
+}
+
+.track {
+  position: absolute;
+  inset: 8px 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.6);
+  transition: left 0.15s ease-out;
+  z-index: 20;
+}
+
+.hitbox {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.diamond {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.12s ease-out;
+}
+
+.hitbox.strong .diamond {
+  background: #22c55e;
+}
+
+.hitbox.attention .diamond {
+  background: #eab308;
+}
+
+.hitbox.critical .diamond {
+  background: #ef4444;
+}
+
+
+/* Premiere-style Timeline */
+.premiere-timeline {
+  position: relative;
+  height: 48px;
+  margin-bottom: 24px;
+}
+
+.premiere-timeline .track {
+  position: absolute;
+  inset: 12px 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.premiere-timeline .playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.8);
+  transition: left 0.15s ease-out;
+  z-index: 20;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Keyframe Markers */
+.keyframe-marker {
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  z-index: 10;
+  padding: 4px;
+}
+
+.keyframe-diamond {
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  transition: all 120ms ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+.keyframe-marker:hover .keyframe-diamond {
+  width: 13px;
+  height: 13px;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.keyframe-marker:active .keyframe-diamond {
+  transform: rotate(45deg) scale(1.15);
+  transition: transform 80ms ease-out;
+}
+
+/* Pulse animation for marker selection */
+.pulse-marker .keyframe-diamond {
+  animation: keyframe-pulse 0.6s ease-out;
+}
+
+@keyframes keyframe-pulse {
+  0% { transform: rotate(45deg) scale(1); }
+  50% { transform: rotate(45deg) scale(1.3); }
+  100% { transform: rotate(45deg) scale(1); }
+}
+
+/* Master clock styling */
+.premiere-timeline .master-clock {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  font-feature-settings: "tnum";
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+/* Time tick styling */
+.premiere-timeline .time-ticks {
+  position: absolute;
+  inset-x: 0;
+  bottom: -24px;
+  height: 16px;
+}
+
+.premiere-timeline .major-tick {
+  position: absolute;
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateX(-50%);
+}
+
+.premiere-timeline .minor-tick {
+  position: absolute;
+  width: 1px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-50%);
+}
+
+.premiere-timeline .tick-label {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  font-feature-settings: "tnum";
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+
+/* Metrics Grid Pulse Animation */
+.pulse-marker {
+  animation: pulse-glow 0.6s ease-out;
+}
+
+@keyframes pulse-glow {
+  0% { 
+    transform: translate(-50%, -50%) scale(1); 
+    box-shadow: 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.3); 
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(1); 
+    box-shadow: 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+/* Metric Tile Enhancements */
+.metric-tile {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.metric-tile:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
