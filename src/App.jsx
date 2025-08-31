@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -41,6 +41,7 @@ import './css/ripclip-theme.css';
 import './css/timeline-sync.css';
 import ripclipLogo from './assets/ripclip-logo.png';
 import reportsMockData from './data/reportsMock.json';
+import { ReportsBoundary } from './components/ReportsBoundary.jsx';
 
 // Enhanced mock data with all latest features
 const mockData = {
@@ -492,60 +493,95 @@ const Reports = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [selectedMoment, setSelectedMoment] = useState(null);
 
-  // Use embedded mock data - no network calls, no dependencies
-  const clipData = reportsMockData?.clipMeta || {
+  // Safe data accessor with fallbacks
+  const safe = (value, fallback) => (value ?? fallback);
+
+  // Use embedded mock data with defensive guards - no network calls, no dependencies
+  const clipData = safe(reportsMockData?.clipMeta, {
     filename: "demo-clip-001.mp4",
     ripScore: 90,
     duration: "30s",
     resolution: "1080p"
-  };
+  });
 
-  const metrics = reportsMockData?.metrics || {
+  const metrics = safe(reportsMockData?.metrics, {
     hookStrength: 85,
     pacingScore: 78,
     captionQuality: 92,
     audioIssues: 67
-  };
+  });
 
-  const timelineData = reportsMockData?.timeline || {
+  const timelineData = safe(reportsMockData?.timeline, {
     duration: 30,
-    moments: []
-  };
+    markers: []
+  });
 
-  const editorialNotes = reportsMockData?.editorialNotes || {
+  // Ensure markers is always an array
+  const markers = Array.isArray(timelineData?.markers) ? timelineData.markers : [];
+
+  const editorialNotes = safe(reportsMockData?.editorialNotes, {
     summary: "Analysis loading...",
     optimalCut: "—",
     keyInsights: []
+  });
+
+  const priorityFixes = Array.isArray(reportsMockData?.priorityFixes) 
+    ? reportsMockData.priorityFixes 
+    : [];
+
+  // Safe formatTime function with null guards
+  const formatTime = (seconds) => {
+    try {
+      const safeSeconds = Number(seconds) || 0;
+      const totalFrames = Math.floor(safeSeconds * 30); // 30fps
+      const hrs = Math.floor(safeSeconds / 3600);
+      const mins = Math.floor((safeSeconds % 3600) / 60);
+      const secs = Math.floor(safeSeconds % 60);
+      const frames = totalFrames % 30;
+      return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}:${frames.toString().padStart(2, '0')}`;
+    } catch (error) {
+      console.warn('formatTime error:', error);
+      return '00:00:00:00';
+    }
   };
 
-  const priorityFixes = reportsMockData?.priorityFixes || [];
-
   const handleTimelineClick = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const percentage = x / rect.width;
-    const time = Math.round(percentage * (timelineData.duration || 30));
-    setCurrentTime(time);
+    try {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percentage = x / rect.width;
+      const time = Math.round(percentage * (timelineData?.duration || 30));
+      setCurrentTime(Math.max(0, Math.min(time, timelineData?.duration || 30)));
+    } catch (error) {
+      console.warn('Timeline click error:', error);
+    }
   };
 
   const handleMarkerClick = (moment) => {
-    setCurrentTime(moment.time || 0);
-    setSelectedMoment(moment);
+    try {
+      setCurrentTime(moment?.time || 0);
+      setSelectedMoment(moment);
+    } catch (error) {
+      console.warn('Marker click error:', error);
+    }
   };
 
   const navigateToMarker = (direction) => {
-    const moments = timelineData.moments || [];
-    const sortedMoments = [...moments].sort((a, b) => (a.time || 0) - (b.time || 0));
-    const currentIndex = sortedMoments.findIndex(m => Math.abs((m.time || 0) - currentTime) < 0.5);
-    
-    if (direction === 'prev' && currentIndex > 0) {
-      const prevMoment = sortedMoments[currentIndex - 1];
-      setCurrentTime(prevMoment.time || 0);
-      setSelectedMoment(prevMoment);
-    } else if (direction === 'next' && currentIndex < sortedMoments.length - 1) {
-      const nextMoment = sortedMoments[currentIndex + 1];
-      setCurrentTime(nextMoment.time || 0);
-      setSelectedMoment(nextMoment);
+    try {
+      const sortedMarkers = [...markers].sort((a, b) => (a?.time || 0) - (b?.time || 0));
+      const currentIndex = sortedMarkers.findIndex(m => Math.abs((m?.time || 0) - currentTime) < 0.5);
+      
+      if (direction === 'prev' && currentIndex > 0) {
+        const prevMoment = sortedMarkers[currentIndex - 1];
+        setCurrentTime(prevMoment?.time || 0);
+        setSelectedMoment(prevMoment);
+      } else if (direction === 'next' && currentIndex < sortedMarkers.length - 1) {
+        const nextMoment = sortedMarkers[currentIndex + 1];
+        setCurrentTime(nextMoment?.time || 0);
+        setSelectedMoment(nextMoment);
+      }
+    } catch (error) {
+      console.warn('Navigate to marker error:', error);
     }
   };
 
@@ -684,32 +720,36 @@ const Reports = () => {
       <div className="moment-cards-section">
         <h3 className="text-lg font-bold mb-4">Moment Analysis</h3>
         <div className="moment-cards-grid">
-          {timelineData.markers.map((marker) => (
+          {markers.map((marker) => (
             <div 
-              key={marker.id} 
+              key={marker?.id || Math.random()} 
               className="moment-card"
               onClick={() => {
-                setCurrentTime(marker.time);
-                setSelectedMoment(marker);
+                try {
+                  setCurrentTime(marker?.time || 0);
+                  setSelectedMoment(marker);
+                } catch (error) {
+                  console.warn('Moment card click error:', error);
+                }
               }}
             >
               <div className="moment-card-header">
-                <span className="moment-timestamp">{formatTime(marker.time)}</span>
-                <span className={`moment-type ${marker.type.toLowerCase()}`}>{marker.type}</span>
+                <span className="moment-timestamp">{formatTime(marker?.time || 0)}</span>
+                <span className={`moment-type ${(marker?.type || 'unknown').toLowerCase()}`}>{marker?.type || 'Unknown'}</span>
               </div>
               <div className="moment-score-row">
                 <span className="moment-score-label">Score</span>
                 <div className="moment-score-chip">
                   <div 
                     className={`score-indicator ${
-                      marker.score >= 85 ? 'high' : 
-                      marker.score >= 70 ? 'medium' : 'low'
+                      (marker?.score || 0) >= 85 ? 'high' : 
+                      (marker?.score || 0) >= 70 ? 'medium' : 'low'
                     }`}
                   ></div>
-                  <span className="score-value">{marker.score}</span>
+                  <span className="score-value">{marker?.score || 0}</span>
                 </div>
               </div>
-              <p className="moment-note">{marker.note || `${marker.type} moment analysis for optimal editing decisions.`}</p>
+              <p className="moment-note">{marker?.note || `${marker?.type || 'Moment'} analysis for optimal editing decisions.`}</p>
             </div>
           ))}
         </div>
@@ -1066,8 +1106,16 @@ const App = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/upload" element={<UploadPage />} />
               <Route path="/clips" element={<MyClips />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route path="/reports-demo" element={<Reports />} />
+              <Route path="/reports" element={
+                <ReportsBoundary>
+                  <Reports />
+                </ReportsBoundary>
+              } />
+              <Route path="/reports-demo" element={
+                <ReportsBoundary>
+                  <Reports />
+                </ReportsBoundary>
+              } />
               <Route path="/settings" element={<SettingsPage />} />
             </Routes>
           </main>
