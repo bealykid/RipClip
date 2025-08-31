@@ -32,9 +32,12 @@ import {
   FileText,
   Calendar,
   Filter,
-  SortDesc
+  SortDesc,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import './App.css';
+import './css/ripclip-theme.css';
 import ripclipLogo from './assets/ripclip-logo.png';
 
 // Enhanced mock data with all latest features
@@ -216,15 +219,15 @@ const Sidebar = ({ isOpen, onClose }) => {
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={onClose} />
       )}
-      <div className={`fixed left-0 top-0 h-full w-80 bg-gray-900 transform transition-transform duration-300 z-50 ${
+      <div className={`fixed left-0 top-0 h-full w-80 rc-sidebar transform transition-transform duration-300 z-50 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0 lg:static lg:z-auto`}>
-        <div className="flex items-center justify-between p-6 border-b border-gray-800">
+        <div className="flex items-center justify-between p-6" style={{borderBottom: '1px solid var(--rc-border)'}}>
           <div className="flex items-center space-x-3">
             <img src={ripclipLogo} alt="RipClip" className="w-8 h-8" />
-            <span className="text-xl font-bold text-white">RipClip</span>
+            <span className="text-xl font-bold" style={{color: 'var(--rc-text)'}}>RipClip</span>
           </div>
-          <button onClick={onClose} className="lg:hidden text-gray-400 hover:text-white">
+          <button onClick={onClose} className="lg:hidden" style={{color: 'var(--rc-subtle)'}} onMouseOver={e => e.target.style.color = 'var(--rc-text)'} onMouseOut={e => e.target.style.color = 'var(--rc-subtle)'}>
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -239,11 +242,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                   key={item.path}
                   to={item.path}
                   onClick={onClose}
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive 
-                      ? 'bg-blue-600 text-white' 
-                      : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                  }`}
+                  className={`rc-nav-item ${isActive ? 'active' : ''}`}
                 >
                   <Icon className="w-5 h-5" />
                   <div className="flex-1">
@@ -263,31 +262,31 @@ const Sidebar = ({ isOpen, onClose }) => {
 // Header Component
 const Header = ({ onMenuClick }) => {
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4">
+    <header className="rc-header px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <button
             onClick={onMenuClick}
-            className="lg:hidden text-gray-600 hover:text-gray-900"
+            className="lg:hidden rc-btn-ghost"
           >
             <Menu className="w-6 h-6" />
           </button>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{color: 'var(--rc-subtle)'}} />
             <input
               type="text"
               placeholder="Search clips, insights..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80"
+              className="rc-input pl-10 pr-4 py-2 w-80"
             />
           </div>
         </div>
         
         <div className="flex items-center space-x-4">
-          <button className="relative text-gray-600 hover:text-gray-900">
+          <button className="relative rc-btn-ghost">
             <Bell className="w-6 h-6" />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+            <span className="absolute -top-1 -right-1 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" style={{background: 'var(--rc-red)'}}>3</span>
           </button>
-          <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
+          <button className="flex items-center space-x-2 rc-btn-ghost">
             <User className="w-6 h-6" />
             <span className="hidden md:block">Steve</span>
           </button>
@@ -300,11 +299,10 @@ const Header = ({ onMenuClick }) => {
 // Enhanced Dashboard Component with Premium Features
 const Dashboard = () => {
   return (
-    <div className="p-6 space-y-6">
+    <div className="rc-main p-6 space-y-6">
       {/* Premium Hero Section */}
-      <div className="bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-3xl p-8 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        <div className="relative z-10">
+      <div className="rc-hero p-8 text-white relative overflow-hidden">
+        <div className="rc-hero-content">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             <div className="lg:col-span-2">
               <h1 className="text-4xl font-bold mb-4">{getGreeting()}, Steve!</h1>
@@ -326,14 +324,14 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-sm">
+            <div className="rc-card-glass p-6">
               <h3 className="text-lg font-semibold mb-4">Performance Pulse</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-sm">Hook Strength</span>
                   <div className="flex items-center space-x-2">
-                    <div className="w-16 bg-white bg-opacity-20 rounded-full h-2">
-                      <div className="bg-green-400 h-2 rounded-full" style={{width: '85%'}}></div>
+                    <div className="rc-progress">
+                      <div className="rc-progress-bar green" style={{width: '85%'}}></div>
                     </div>
                     <span className="text-sm font-medium">85%</span>
                   </div>
@@ -341,8 +339,8 @@ const Dashboard = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-sm">Pacing Score</span>
                   <div className="flex items-center space-x-2">
-                    <div className="w-16 bg-white bg-opacity-20 rounded-full h-2">
-                      <div className="bg-yellow-400 h-2 rounded-full" style={{width: '78%'}}></div>
+                    <div className="rc-progress">
+                      <div className="rc-progress-bar yellow" style={{width: '78%'}}></div>
                     </div>
                     <span className="text-sm font-medium">78%</span>
                   </div>
@@ -1010,13 +1008,13 @@ const App = () => {
 
   return (
     <Router>
-      <div className="flex h-screen bg-gray-50">
+      <div className="flex h-screen" style={{background: 'var(--rc-bg)'}}>
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         
         <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
           <Header onMenuClick={() => setSidebarOpen(true)} />
           
-          <main className="flex-1 overflow-auto">
+          <main className="rc-main flex-1 overflow-auto">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/upload" element={<UploadPage />} />

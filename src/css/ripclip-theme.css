@@ -1,0 +1,556 @@
+/* RipClip Premium Theme - Dark UI with Neon Accents */
+
+:root {
+  /* Core Colors */
+  --rc-bg: #0b0e12;
+  --rc-panel: #0f141a;
+  --rc-panel-2: #121821;
+  --rc-text: #e6e8eb;
+  --rc-subtle: #aab2bd;
+  --rc-cyan: #00d4ff;
+  --rc-purple: #7c3aed;
+  --rc-green: #1FDB6A;
+  --rc-yellow: #FFC857;
+  --rc-red: #FF4D4D;
+  --rc-border: #1c2430;
+  
+  /* Timeline Specifics */
+  --rc-video-orange: #d48806;
+  --rc-audio-base: #0f1a16;
+  --rc-wave-green: #158a6a;
+}
+
+/* Global Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--rc-bg);
+  color: var(--rc-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--rc-text);
+  font-weight: 600;
+  margin: 0;
+}
+
+p, span, div {
+  color: var(--rc-text);
+}
+
+.text-subtle {
+  color: var(--rc-subtle);
+}
+
+/* Layout Components */
+.rc-sidebar {
+  background: var(--rc-panel);
+  border-right: 1px solid var(--rc-border);
+}
+
+.rc-header {
+  background: var(--rc-panel);
+  border-bottom: 1px solid var(--rc-border);
+  backdrop-filter: blur(6px);
+}
+
+.rc-main {
+  background: var(--rc-bg);
+}
+
+/* Cards and Panels */
+.rc-card {
+  background: var(--rc-panel);
+  border: 1px solid var(--rc-border);
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.rc-card-glass {
+  background: #0f141ab3;
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--rc-border);
+  border-radius: 12px;
+}
+
+.rc-panel {
+  background: var(--rc-panel);
+  border: 1px solid var(--rc-border);
+  border-radius: 8px;
+}
+
+.rc-panel-2 {
+  background: var(--rc-panel-2);
+  border: 1px solid var(--rc-border);
+  border-radius: 8px;
+}
+
+/* Buttons */
+.rc-btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.rc-btn:focus {
+  outline: 2px solid var(--rc-cyan);
+  outline-offset: 2px;
+}
+
+.rc-btn-primary {
+  background: var(--rc-cyan);
+  color: #000;
+  padding: 12px 24px;
+}
+
+.rc-btn-primary:hover {
+  background: #00b8e6;
+  transform: translateY(-1px);
+}
+
+.rc-btn-secondary {
+  background: var(--rc-purple);
+  color: white;
+  padding: 12px 24px;
+}
+
+.rc-btn-secondary:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}
+
+.rc-btn-ghost {
+  background: transparent;
+  color: var(--rc-text);
+  border: 1px solid var(--rc-border);
+  padding: 8px 16px;
+}
+
+.rc-btn-ghost:hover {
+  background: var(--rc-panel);
+  border-color: var(--rc-cyan);
+}
+
+/* Links */
+a {
+  color: var(--rc-cyan);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #00b8e6;
+}
+
+/* Form Elements */
+.rc-input {
+  background: var(--rc-panel-2);
+  border: 1px solid var(--rc-border);
+  border-radius: 8px;
+  color: var(--rc-text);
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+}
+
+.rc-input:focus {
+  outline: none;
+  border-color: var(--rc-cyan);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+.rc-input::placeholder {
+  color: var(--rc-subtle);
+}
+
+/* Navigation */
+.rc-nav-item {
+  color: var(--rc-subtle);
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rc-nav-item:hover {
+  background: var(--rc-panel-2);
+  color: var(--rc-text);
+}
+
+.rc-nav-item.active {
+  background: var(--rc-cyan);
+  color: #000;
+}
+
+/* Hero Section */
+.rc-hero {
+  background: linear-gradient(135deg, var(--rc-cyan) 0%, var(--rc-purple) 50%, #ff006e 100%);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+}
+
+.rc-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+}
+
+.rc-hero-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+/* Stats and Metrics */
+.rc-stat {
+  text-align: center;
+}
+
+.rc-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--rc-text);
+}
+
+.rc-stat-label {
+  font-size: 0.875rem;
+  color: var(--rc-subtle);
+}
+
+/* Progress Bars */
+.rc-progress {
+  background: var(--rc-panel-2);
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.rc-progress-bar {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.rc-progress-bar.green {
+  background: var(--rc-green);
+}
+
+.rc-progress-bar.yellow {
+  background: var(--rc-yellow);
+}
+
+.rc-progress-bar.red {
+  background: var(--rc-red);
+}
+
+/* Timeline Styles */
+.rc-timeline-container {
+  background: var(--rc-panel);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--rc-border);
+}
+
+.rc-ruler {
+  height: 50px;
+  border-bottom: 1px solid var(--rc-border);
+  position: relative;
+  background: var(--rc-panel-2);
+  border-radius: 6px 6px 0 0;
+}
+
+.rc-master-clock {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--rc-text);
+  background: var(--rc-panel);
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--rc-border);
+}
+
+.rc-tick {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  background: var(--rc-border);
+}
+
+.rc-tick.major {
+  height: 20px;
+  background: var(--rc-subtle);
+}
+
+.rc-tick.minor {
+  height: 10px;
+}
+
+.rc-tick-label {
+  position: absolute;
+  bottom: 25px;
+  font-size: 12px;
+  color: var(--rc-subtle);
+  transform: translateX(-50%);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+}
+
+.rc-track {
+  height: 60px;
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.rc-track.v1 {
+  background: var(--rc-video-orange);
+  color: #000;
+  font-weight: 600;
+}
+
+.rc-track.a1 {
+  background: var(--rc-audio-base);
+  color: var(--rc-wave-green);
+  font-weight: 600;
+}
+
+.rc-track-label {
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--rc-text);
+}
+
+.rc-waveform {
+  position: absolute;
+  inset: 6px 8px;
+  opacity: 0.9;
+  filter: hue-rotate(120deg) saturate(1.2) brightness(1.1);
+  background-image: url('/assets/waveform.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-radius: 3px;
+}
+
+.rc-gap {
+  height: 4px;
+}
+
+.rc-marker {
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rc-marker:hover {
+  transform: rotate(45deg) scale(1.2);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+.rc-marker.green {
+  background: var(--rc-green);
+}
+
+.rc-marker.yellow {
+  background: var(--rc-yellow);
+}
+
+.rc-marker.red {
+  background: var(--rc-red);
+}
+
+.rc-playhead {
+  position: absolute;
+  width: 2px;
+  background: var(--rc-cyan);
+  transition: left 0.12s ease;
+  height: calc(50px + 60px + 4px + 60px); /* ruler + V1 + gap + A1 */
+  top: 0;
+  box-shadow: 0 0 8px var(--rc-cyan);
+}
+
+.rc-playhead::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  background: var(--rc-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--rc-cyan);
+}
+
+/* Timeline Controls */
+.rc-timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.rc-control-btn {
+  background: var(--rc-panel-2);
+  border: 1px solid var(--rc-border);
+  border-radius: 6px;
+  color: var(--rc-text);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rc-control-btn:hover {
+  background: var(--rc-cyan);
+  color: #000;
+}
+
+/* Tooltips */
+.rc-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--rc-panel);
+  color: var(--rc-text);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--rc-border);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.rc-marker:hover .rc-tooltip {
+  opacity: 1;
+}
+
+/* Moment Analysis */
+.rc-moment-analysis {
+  background: var(--rc-panel);
+  border: 1px solid var(--rc-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.rc-priority-high {
+  border-left: 4px solid var(--rc-red);
+}
+
+.rc-priority-medium {
+  border-left: 4px solid var(--rc-yellow);
+}
+
+.rc-priority-low {
+  border-left: 4px solid var(--rc-green);
+}
+
+/* AI Notes */
+.rc-ai-notes {
+  background: linear-gradient(135deg, rgba(31, 219, 106, 0.1), rgba(31, 219, 106, 0.05));
+  border: 1px solid rgba(31, 219, 106, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.rc-priority-fixes {
+  background: linear-gradient(135deg, rgba(255, 200, 87, 0.1), rgba(255, 200, 87, 0.05));
+  border: 1px solid rgba(255, 200, 87, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .rc-hero {
+    border-radius: 16px;
+  }
+  
+  .rc-master-clock {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+  
+  .rc-track {
+    height: 50px;
+  }
+  
+  .rc-playhead {
+    height: calc(50px + 50px + 4px + 50px);
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.rc-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Utility Classes */
+.rc-glass {
+  backdrop-filter: blur(6px);
+  background: rgba(15, 20, 26, 0.7);
+}
+
+.rc-shadow {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.rc-shadow-lg {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+.rc-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.rc-glow-purple {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
