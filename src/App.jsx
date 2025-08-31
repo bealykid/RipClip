@@ -38,6 +38,7 @@ import {
 } from 'lucide-react';
 import './App.css';
 import './css/ripclip-theme.css';
+import './css/timeline-sync.css';
 import ripclipLogo from './assets/ripclip-logo.png';
 
 // Enhanced mock data with all latest features
@@ -222,12 +223,12 @@ const Sidebar = ({ isOpen, onClose }) => {
       <div className={`fixed left-0 top-0 h-full w-80 rc-sidebar transform transition-transform duration-300 z-50 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0 lg:static lg:z-auto`}>
-        <div className="flex items-center justify-between p-6" style={{borderBottom: '1px solid var(--rc-border)'}}>
+        <div className="flex items-center justify-between p-6" style={{borderBottom: '1px solid var(--border)'}}>
           <div className="flex items-center space-x-3">
             <img src={ripclipLogo} alt="RipClip" className="w-8 h-8" />
-            <span className="text-xl font-bold" style={{color: 'var(--rc-text)'}}>RipClip</span>
+            <span className="text-xl font-bold" style={{color: 'var(--text)'}}>RipClip</span>
           </div>
-          <button onClick={onClose} className="lg:hidden" style={{color: 'var(--rc-subtle)'}} onMouseOver={e => e.target.style.color = 'var(--rc-text)'} onMouseOut={e => e.target.style.color = 'var(--rc-subtle)'}>
+          <button onClick={onClose} className="lg:hidden" style={{color: 'var(--muted)'}} onMouseOver={e => e.target.style.color = 'var(--text)'} onMouseOut={e => e.target.style.color = 'var(--muted)'}>
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -272,7 +273,7 @@ const Header = ({ onMenuClick }) => {
             <Menu className="w-6 h-6" />
           </button>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{color: 'var(--rc-subtle)'}} />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{color: 'var(--muted)'}} />
             <input
               type="text"
               placeholder="Search clips, insights..."
@@ -284,7 +285,7 @@ const Header = ({ onMenuClick }) => {
         <div className="flex items-center space-x-4">
           <button className="relative rc-btn-ghost">
             <Bell className="w-6 h-6" />
-            <span className="absolute -top-1 -right-1 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" style={{background: 'var(--rc-red)'}}>3</span>
+            <span className="absolute -top-1 -right-1 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" style={{background: 'var(--marker-red)'}}>3</span>
           </button>
           <button className="flex items-center space-x-2 rc-btn-ghost">
             <User className="w-6 h-6" />
@@ -501,145 +502,136 @@ const Reports = () => {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="rc-main p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Clip Doctor - Waveform Integrated</h1>
-          <p className="text-gray-600">demo-clip-001.mp4 • RipScore: 90 • Duration: 30s • Resolution: 1080p</p>
-        </div>
-        <div className="text-right">
-          <div className="text-3xl font-bold text-gray-900">00:00:02:00</div>
-          <div className="text-sm text-gray-600">Frame 750 of 900</div>
+          <h1 className="text-2xl font-bold" style={{color: 'var(--text)'}}>Clip Doctor - Waveform Integrated</h1>
+          <p className="text-muted">demo-clip-001.mp4 • RipScore: 90 • Duration: 30s • Resolution: 1080p</p>
         </div>
       </div>
 
       {/* Metrics Grid */}
       <div className="grid grid-cols-4 gap-6">
-        <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+        <div className="rc-card p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600">85</div>
-            <div className="text-sm text-green-700 font-medium">Hook Strength</div>
+            <div className="text-3xl font-bold" style={{color: 'var(--marker-green)'}}>85</div>
+            <div className="text-small text-muted font-medium">Hook Strength</div>
           </div>
         </div>
-        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+        <div className="rc-card p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-yellow-600">78</div>
-            <div className="text-sm text-yellow-700 font-medium">Pacing Score</div>
+            <div className="text-3xl font-bold" style={{color: 'var(--marker-amber)'}}>78</div>
+            <div className="text-small text-muted font-medium">Pacing Score</div>
           </div>
         </div>
-        <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+        <div className="rc-card p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600">92</div>
-            <div className="text-sm text-green-700 font-medium">Caption Quality</div>
+            <div className="text-3xl font-bold" style={{color: 'var(--marker-green)'}}>92</div>
+            <div className="text-small text-muted font-medium">Caption Quality</div>
           </div>
         </div>
-        <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+        <div className="rc-card p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-red-600">67</div>
-            <div className="text-sm text-red-700 font-medium">Audio Issues</div>
+            <div className="text-3xl font-bold" style={{color: 'var(--marker-red)'}}>67</div>
+            <div className="text-small text-muted font-medium">Audio Issues</div>
           </div>
         </div>
       </div>
 
-      {/* Professional Timeline */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900">Timeline</h2>
-          <div className="flex items-center space-x-4">
-            <button className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200">
-              <Play className="w-5 h-5" />
-            </button>
-            <button className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200">
-              <BarChart3 className="w-5 h-5" />
-            </button>
-            <button className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200">
-              <Settings className="w-5 h-5" />
-            </button>
-          </div>
+      {/* Professional Timeline - UI Sync Exact Specifications */}
+      <div className="timeline">
+        {/* Master Clock */}
+        <div className="master-clock">
+          {formatTime(currentTime)}
         </div>
 
-        {/* Timeline Container */}
-        <div className="relative bg-gray-900 rounded-lg p-4">
-          {/* Time Ruler */}
-          <div className="relative h-8 mb-2 border-b border-gray-700">
-            {Array.from({ length: 7 }, (_, i) => i * 5).map((time) => (
-              <div key={time} className="absolute flex flex-col items-center" style={{ left: `${(time / timelineData.duration) * 100}%` }}>
-                <div className="w-px h-4 bg-gray-500"></div>
-                <span className="text-xs text-gray-400 mt-1">{formatTime(time)}</span>
-              </div>
-            ))}
-            
-            {/* Timeline Markers */}
-            {timelineData.moments.map((moment) => (
-              <div
-                key={moment.id}
-                className={`absolute top-0 w-3 h-3 rounded-full cursor-pointer transform -translate-x-1/2 ${
-                  moment.type === 'hook' ? 'bg-yellow-500' :
-                  moment.type === 'pacing' ? 'bg-red-500' :
-                  moment.type === 'engagement' ? 'bg-green-500' :
-                  moment.type === 'audio' ? 'bg-blue-500' :
-                  'bg-purple-500'
-                }`}
-                style={{ left: `${(moment.time / timelineData.duration) * 100}%` }}
-                onClick={() => handleMarkerClick(moment)}
-                title={`${formatTime(moment.time)} - ${moment.title}`}
-              />
-            ))}
-            
-            {/* Playhead */}
-            <div
-              className="absolute top-0 w-0.5 h-full bg-cyan-400 z-10"
-              style={{ left: `${(currentTime / timelineData.duration) * 100}%` }}
-            >
-              <div className="absolute -top-1 -left-1 w-3 h-3 bg-cyan-400 rounded-full"></div>
-            </div>
-          </div>
+        {/* Timeline Navigation */}
+        <div className="timeline-nav">
+          <button 
+            className="nav-btn"
+            onClick={() => navigateToMarker('prev')}
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Prev
+          </button>
+          <button 
+            className="nav-btn"
+            onClick={() => navigateToMarker('next')}
+          >
+            Next
+            <ChevronRight className="w-4 h-4" />
+          </button>
+          <span className="text-small text-muted">
+            Toggle keyframes ↑ ↓
+          </span>
+        </div>
 
-          {/* Video Track */}
-          <div className="mb-1">
-            <div className="flex items-center mb-2">
-              <div className="w-8 text-center text-white font-bold text-sm">V1</div>
-              <div className="flex-1 ml-2">
-                <div
-                  className="h-16 bg-orange-600 rounded-lg relative cursor-pointer flex items-center px-4"
-                  onClick={handleTimelineClick}
+        {/* Ruler with Markers */}
+        <div className="ruler" onClick={handleTimelineClick}>
+          {/* Timeline Ticks */}
+          {Array.from({ length: 31 }, (_, i) => (
+            <div key={i}>
+              <div 
+                className={`tick ${i % 5 === 0 ? 'major' : 'minor'}`}
+                style={{ left: `${(i / 30) * 100}%` }}
+              />
+              {i % 5 === 0 && (
+                <div 
+                  className="label"
+                  style={{ left: `${(i / 30) * 100}%` }}
                 >
-                  <span className="text-white font-medium text-sm">demo-clip-001.mp4</span>
+                  00:{i.toString().padStart(2, '0')}
                 </div>
+              )}
+            </div>
+          ))}
+
+          {/* Timeline Markers */}
+          {mockData.moments.map((moment) => (
+            <div
+              key={moment.id}
+              className={`marker ${
+                moment.priority === 'high' ? 'red' : 
+                moment.priority === 'medium' ? 'amber' : 
+                'green'
+              }`}
+              style={{ left: `${(moment.time / 30) * 100}%` }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentTime(moment.time);
+                setSelectedMoment(moment);
+              }}
+            >
+              <div className="tooltip">
+                {formatTime(moment.time)} - {moment.title}
               </div>
+            </div>
+          ))}
+
+          {/* Playhead */}
+          <div 
+            className="playhead" 
+            style={{ left: `${(currentTime / 30) * 100}%` }}
+          />
+        </div>
+
+        {/* Tracks Container */}
+        <div className="tracks">
+          {/* Video Track */}
+          <div className="relative">
+            <div className="track-label">V1</div>
+            <div className="clip v1" onClick={handleTimelineClick}>
+              <span className="font-medium text-sm">demo-clip-001.mp4</span>
             </div>
           </div>
 
           {/* Audio Track with Waveform */}
-          <div>
-            <div className="flex items-center">
-              <div className="w-8 text-center text-white font-bold text-sm">A1</div>
-              <div className="flex-1 ml-2">
-                <div
-                  className="h-16 bg-gray-800 rounded-lg relative cursor-pointer overflow-hidden"
-                  onClick={handleTimelineClick}
-                >
-                  {/* Waveform Background */}
-                  <div className="absolute inset-2 flex items-center justify-center">
-                    <div className="flex items-center space-x-px h-full w-full">
-                      {Array.from({ length: 100 }, (_, i) => (
-                        <div
-                          key={i}
-                          className="bg-green-500 opacity-70"
-                          style={{
-                            height: `${Math.random() * 80 + 20}%`,
-                            width: '1%'
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 flex items-center px-4">
-                    <span className="text-green-400 font-medium text-sm relative z-10">demo-clip-001.wav</span>
-                  </div>
-                </div>
-              </div>
+          <div className="relative">
+            <div className="track-label">A1</div>
+            <div className="clip a1" onClick={handleTimelineClick}>
+              <div className="waveform"></div>
+              <span className="font-medium text-sm relative z-10">demo-clip-001.wav</span>
             </div>
           </div>
         </div>
@@ -1008,7 +1000,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="flex h-screen" style={{background: 'var(--rc-bg)'}}>
+      <div className="flex h-screen" style={{background: 'var(--bg)'}}>
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         
         <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">

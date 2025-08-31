@@ -1,23 +1,35 @@
-/* RipClip Premium Theme - Dark UI with Neon Accents */
+/* RipClip UI Sync Theme - Exact Specifications */
 
 :root {
-  /* Core Colors */
-  --rc-bg: #0b0e12;
-  --rc-panel: #0f141a;
-  --rc-panel-2: #121821;
-  --rc-text: #e6e8eb;
-  --rc-subtle: #aab2bd;
-  --rc-cyan: #00d4ff;
-  --rc-purple: #7c3aed;
-  --rc-green: #1FDB6A;
-  --rc-yellow: #FFC857;
-  --rc-red: #FF4D4D;
-  --rc-border: #1c2430;
+  /* Core Colors - UI Sync Specification */
+  --bg: #0d1117;
+  --panel: #111418;
+  --border: #262b31;
+  --text: #e7ecf2;
+  --muted: #a9b0b8;
+  --subtle: #7b8290;
+  --cyan: #22d3ee;
   
   /* Timeline Specifics */
-  --rc-video-orange: #d48806;
-  --rc-audio-base: #0f1a16;
-  --rc-wave-green: #158a6a;
+  --v1: #d48806;
+  --a1: #0f1a16;
+  --wave: #158a6a;
+  
+  /* Marker Colors */
+  --marker-green: #22c55e;
+  --marker-amber: #f59e0b;
+  --marker-red: #ef4444;
+  --marker-info: #60a5fa;
+  
+  /* Radii */
+  --radius: 12px;
+  --clip-radius: 6px;
+  
+  /* Typography */
+  --font-base: 14px;
+  --font-small: 12px;
+  --font-heading: 16px;
+  --font-large: 18px;
 }
 
 /* Global Base Styles */
@@ -26,70 +38,72 @@
 }
 
 body {
-  background: var(--rc-bg);
-  color: var(--rc-text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--font-base);
   margin: 0;
   padding: 0;
+  line-height: 1.5;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  color: var(--rc-text);
+  color: var(--text);
   font-weight: 600;
   margin: 0;
+  font-size: var(--font-heading);
+}
+
+h1 {
+  font-size: var(--font-large);
 }
 
 p, span, div {
-  color: var(--rc-text);
+  color: var(--text);
+  font-size: var(--font-base);
+}
+
+.text-muted {
+  color: var(--muted);
 }
 
 .text-subtle {
-  color: var(--rc-subtle);
+  color: var(--subtle);
+}
+
+.text-small {
+  font-size: var(--font-small);
 }
 
 /* Layout Components */
 .rc-sidebar {
-  background: var(--rc-panel);
-  border-right: 1px solid var(--rc-border);
+  background: var(--panel);
+  border-right: 1px solid var(--border);
 }
 
 .rc-header {
-  background: var(--rc-panel);
-  border-bottom: 1px solid var(--rc-border);
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
   backdrop-filter: blur(6px);
 }
 
 .rc-main {
-  background: var(--rc-bg);
+  background: var(--bg);
 }
 
 /* Cards and Panels */
 .rc-card {
-  background: var(--rc-panel);
-  border: 1px solid var(--rc-border);
-  border-radius: 12px;
-  backdrop-filter: blur(6px);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
-.rc-card-glass {
-  background: #0f141ab3;
-  backdrop-filter: blur(6px);
-  border: 1px solid var(--rc-border);
-  border-radius: 12px;
-}
-
 .rc-panel {
-  background: var(--rc-panel);
-  border: 1px solid var(--rc-border);
-  border-radius: 8px;
-}
-
-.rc-panel-2 {
-  background: var(--rc-panel-2);
-  border: 1px solid var(--rc-border);
-  border-radius: 8px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
 
 /* Buttons */

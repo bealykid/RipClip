@@ -1,0 +1,240 @@
+/* Timeline - UI Sync Exact Specifications */
+
+.timeline {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 16px 0;
+}
+
+/* Ruler */
+.ruler {
+  height: 50px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.ruler .tick.major {
+  height: 10px;
+  border-left: 1px solid #3a4048;
+  position: absolute;
+  bottom: 0;
+}
+
+.ruler .tick.minor {
+  height: 6px;
+  border-left: 1px solid #2e333a;
+  position: absolute;
+  bottom: 0;
+}
+
+.ruler .label {
+  font-family: ui-monospace, 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  font-size: var(--font-small);
+  color: var(--muted);
+  position: absolute;
+  bottom: 15px;
+  transform: translateX(-50%);
+}
+
+/* Master Clock */
+.master-clock {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: ui-monospace, 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  font-size: var(--font-heading);
+  font-weight: 600;
+  color: var(--text);
+  background: var(--panel);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* Tracks Container */
+.tracks {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+/* Track Styling */
+.clip {
+  height: 60px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-weight: 500;
+}
+
+.clip.v1 {
+  background: var(--v1);
+  border-radius: var(--clip-radius);
+  color: #000;
+}
+
+.clip.a1 {
+  background: var(--a1);
+  border-radius: var(--clip-radius);
+  position: relative;
+  overflow: hidden;
+  color: var(--wave);
+}
+
+.clip.a1 .waveform {
+  position: absolute;
+  inset: 6px 8px;
+  opacity: 0.9;
+  filter: hue-rotate(120deg) saturate(1.2) brightness(1.1);
+  background-image: url('/assets/waveform.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-radius: 3px;
+}
+
+/* Track Labels */
+.track-label {
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  font-size: var(--font-base);
+  color: var(--text);
+}
+
+/* Playhead */
+.playhead {
+  position: absolute;
+  width: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+  height: calc(50px + 60px + 4px + 60px); /* ruler + V1 + gap + A1 */
+  top: 0;
+  transition: left 0.12s ease;
+  z-index: 10;
+}
+
+.playhead::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 14px;
+  height: 14px;
+  background: var(--cyan);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+/* Markers */
+.marker {
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 5;
+}
+
+.marker:hover {
+  transform: rotate(45deg) scale(1.2);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+.marker.green {
+  background: var(--marker-green);
+}
+
+.marker.amber {
+  background: var(--marker-amber);
+}
+
+.marker.red {
+  background: var(--marker-red);
+}
+
+.marker.info {
+  background: var(--marker-info);
+}
+
+/* Hover Tooltips */
+.tooltip {
+  background: #0b0d10;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--font-small);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+  margin-bottom: 8px;
+}
+
+.marker:hover .tooltip {
+  opacity: 1;
+}
+
+/* Navigation Controls */
+.timeline-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+.nav-btn {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-btn:hover {
+  background: var(--cyan);
+  color: #000;
+  border-color: var(--cyan);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timeline {
+    padding: 16px;
+  }
+  
+  .master-clock {
+    font-size: var(--font-base);
+    padding: 6px 12px;
+  }
+  
+  .clip {
+    height: 50px;
+  }
+  
+  .playhead {
+    height: calc(50px + 50px + 4px + 50px);
+  }
+}
+
