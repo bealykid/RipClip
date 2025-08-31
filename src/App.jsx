@@ -600,19 +600,14 @@ const Reports = () => {
             className="nav-btn"
             onClick={() => navigateToMarker('prev')}
           >
-            <ChevronLeft className="w-4 h-4" />
-            Prev
+            ⟵ Prev
           </button>
           <button 
             className="nav-btn"
             onClick={() => navigateToMarker('next')}
           >
-            Next
-            <ChevronRight className="w-4 h-4" />
+            Next ⟶
           </button>
-          <span className="text-small text-muted">
-            Toggle keyframes ↑ ↓
-          </span>
         </div>
 
         {/* Ruler with Markers */}
