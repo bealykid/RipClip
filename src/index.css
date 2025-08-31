@@ -1,6 +1,7 @@
 /* RipClip Global Styles - Emergency Stabilization */
 @import './css/ripclip-theme.css';
 @import './css/timeline-sync.css';
+@import './css/cards-visibility.css';
 
 /* Ensure consistent global styling */
 * {

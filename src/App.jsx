@@ -687,16 +687,16 @@ const Reports = () => {
 
       {/* Moment Analysis */}
       {selectedMoment && (
-        <div className="rc-card p-6">
-          <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text)'}}>Moment Analysis</h3>
+        <div className="card">
+          <h3 className="text-lg font-bold mb-4">Moment Analysis</h3>
           <div className="space-y-4">
             <div>
-              <h4 className="font-medium" style={{color: 'var(--text)'}}>{selectedMoment.title}</h4>
-              <p className="text-muted text-sm">{formatTime(selectedMoment.time || 0)} - {selectedMoment.type}</p>
+              <h4 className="font-medium">{selectedMoment.title}</h4>
+              <p className="muted text-sm">{formatTime(selectedMoment.time || 0)} - {selectedMoment.type}</p>
             </div>
-            <p className="text-muted">{selectedMoment.description}</p>
+            <p className="muted">{selectedMoment.description}</p>
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-muted">Score:</span>
+              <span className="text-sm muted">Score:</span>
               <span className="font-bold" style={{color: getScoreColor(selectedMoment.score || 0)}}>{selectedMoment.score || 0}</span>
             </div>
           </div>
@@ -704,36 +704,32 @@ const Reports = () => {
       )}
 
       {/* AI Editorial Notes */}
-      <div className="rc-card p-6" style={{background: 'var(--marker-green)', opacity: 0.1}}>
-        <div className="rc-card p-6" style={{background: 'var(--panel)'}}>
-          <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text)'}}>AI Editorial Notes</h3>
-          <p className="text-muted mb-4">{editorialNotes.summary}</p>
-          
-          <div className="rc-card p-4" style={{background: 'var(--marker-green)', opacity: 0.1}}>
-            <div className="rc-card p-4" style={{background: 'var(--panel)'}}>
-              <h4 className="font-medium mb-2" style={{color: 'var(--text)'}}>Optimal Cut</h4>
-              <p className="text-2xl font-bold" style={{color: 'var(--marker-green)'}}>{editorialNotes.optimalCut}</p>
-            </div>
-          </div>
+      <div className="card">
+        <h3 className="text-lg font-bold mb-4">AI Editorial Notes</h3>
+        <p className="muted mb-4">{editorialNotes.summary}</p>
+        
+        <div className="card p-4">
+          <h4 className="font-medium mb-2">Optimal Cut</h4>
+          <p className="text-2xl font-bold" style={{color: 'var(--marker-green)'}}>{editorialNotes.optimalCut}</p>
         </div>
       </div>
 
       {/* Priority Fixes */}
-      <div className="rc-card p-6">
-        <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text)'}}>Priority Fixes</h3>
+      <div className="card">
+        <h3 className="text-lg font-bold mb-4">Priority Fixes</h3>
         <div className="space-y-3">
           {priorityFixes.map((fix) => (
-            <div key={fix.id} className="flex items-center space-x-3 p-3 rounded-lg" style={{background: 'var(--panel)', border: '1px solid var(--border)'}}>
+            <div key={fix.id} className="flex items-center space-x-3 p-3 rounded-lg card">
               <div className={`w-2 h-2 rounded-full ${
                 fix.impact === 'high' ? 'bg-red-500' : 
                 fix.impact === 'medium' ? 'bg-yellow-500' : 
                 'bg-green-500'
               }`}></div>
               <div className="flex-1">
-                <p className="font-medium" style={{color: 'var(--text)'}}>{fix.title}</p>
-                <p className="text-small text-muted">{fix.timeRange}</p>
+                <p className="font-medium">{fix.title}</p>
+                <p className="text-small muted">{fix.timeRange}</p>
               </div>
-              <div className="text-small text-muted">{fix.effort} effort</div>
+              <div className="text-small muted">{fix.effort} effort</div>
             </div>
           ))}
         </div>

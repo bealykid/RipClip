@@ -1,0 +1,49 @@
+/* Card Visibility & Contrast Fix */
+
+.card {
+  background: #14171a;
+  border: 1px solid #22272e;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 24px;
+  margin: 16px 0;
+}
+
+.card h3 {
+  color: #e6e6e6;
+}
+
+.card p,
+.muted {
+  color: #b8c0cc;
+}
+
+.card h4 {
+  color: #e6e6e6;
+}
+
+/* Ensure no semi-transparent overlays */
+.card .card {
+  background: #14171a;
+  border: 1px solid #22272e;
+  margin: 8px 0;
+}
+
+/* Override any existing transparency */
+.card * {
+  opacity: 1 !important;
+}
+
+/* Text contrast improvements */
+.card .font-medium {
+  color: #e6e6e6;
+}
+
+.card .font-bold {
+  color: #e6e6e6;
+}
+
+.card .text-small {
+  color: #b8c0cc;
+}
+
