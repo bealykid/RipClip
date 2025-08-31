@@ -2,6 +2,7 @@
 @import './css/ripclip-theme.css';
 @import './css/timeline-sync.css';
 @import './css/cards-visibility.css';
+@import './css/reports-cards.css';
 
 /* Ensure consistent global styling */
 * {

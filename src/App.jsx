@@ -680,10 +680,45 @@ const Reports = () => {
         </div>
       </div>
 
+      {/* Moment Cards - New Section */}
+      <div className="moment-cards-section">
+        <h3 className="text-lg font-bold mb-4">Moment Analysis</h3>
+        <div className="moment-cards-grid">
+          {timelineData.markers.map((marker) => (
+            <div 
+              key={marker.id} 
+              className="moment-card"
+              onClick={() => {
+                setCurrentTime(marker.time);
+                setSelectedMoment(marker);
+              }}
+            >
+              <div className="moment-card-header">
+                <span className="moment-timestamp">{formatTime(marker.time)}</span>
+                <span className={`moment-type ${marker.type.toLowerCase()}`}>{marker.type}</span>
+              </div>
+              <div className="moment-score-row">
+                <span className="moment-score-label">Score</span>
+                <div className="moment-score-chip">
+                  <div 
+                    className={`score-indicator ${
+                      marker.score >= 85 ? 'high' : 
+                      marker.score >= 70 ? 'medium' : 'low'
+                    }`}
+                  ></div>
+                  <span className="score-value">{marker.score}</span>
+                </div>
+              </div>
+              <p className="moment-note">{marker.note || `${marker.type} moment analysis for optimal editing decisions.`}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Moment Analysis */}
       {selectedMoment && (
         <div className="card">
-          <h3 className="text-lg font-bold mb-4">Moment Analysis</h3>
+          <h3 className="text-lg font-bold mb-4">Selected Moment Details</h3>
           <div className="space-y-4">
             <div>
               <h4 className="font-medium">{selectedMoment.title}</h4>
