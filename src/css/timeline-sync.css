@@ -1,100 +1,174 @@
-/* Timeline - UI Sync Exact Specifications */
+/* Premiere-Style Timeline - UI Sync Exact Specifications */
 
 .timeline {
+  position: relative;
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin: 16px 0;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
 
-/* Ruler */
-.ruler {
-  height: 50px;
-  position: relative;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 16px;
-}
-
-.ruler .tick.major {
-  height: 10px;
-  border-left: 1px solid #3a4048;
-  position: absolute;
-  bottom: 0;
-}
-
-.ruler .tick.minor {
-  height: 6px;
-  border-left: 1px solid #2e333a;
-  position: absolute;
-  bottom: 0;
-}
-
-.ruler .label {
-  font-family: ui-monospace, 'SF Mono', 'Monaco', 'Inconsolata', monospace;
-  font-size: var(--font-small);
-  color: var(--muted);
-  position: absolute;
-  bottom: 15px;
-  transform: translateX(-50%);
-}
-
-/* Master Clock */
+/* Master Clock - Centered Above Ruler */
 .master-clock {
   position: absolute;
-  top: -40px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: ui-monospace, 'SF Mono', 'Monaco', 'Inconsolata', monospace;
-  font-size: var(--font-heading);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  z-index: 10;
+}
+
+/* Timeline Navigation */
+.timeline-nav {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
   background: var(--panel);
-  padding: 8px 16px;
-  border-radius: 8px;
   border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: var(--border);
+  color: var(--cyan);
+}
+
+/* Ruler with Professional Ticks */
+.ruler {
+  position: relative;
+  height: 40px;
+  margin: 40px 0 16px 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: crosshair;
+}
+
+/* Timeline Ticks */
+.tick {
+  position: absolute;
+  bottom: 0;
+  background: var(--border);
+}
+
+.tick.minor {
+  width: 1px;
+  height: 8px;
+}
+
+.tick.major {
+  width: 1px;
+  height: 16px;
+  background: var(--text);
+}
+
+/* Tick Labels */
+.label {
+  position: absolute;
+  bottom: 20px;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--muted);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  pointer-events: none;
+}
+
+/* Diamond Markers */
+.marker {
+  position: absolute;
+  top: -8px;
+  width: 12px;
+  height: 12px;
+  transform: translateX(-50%) rotate(45deg);
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s ease;
+}
+
+.marker.red {
+  background: var(--marker-red);
+  border: 2px solid var(--marker-red);
+}
+
+.marker.amber {
+  background: var(--marker-amber);
+  border: 2px solid var(--marker-amber);
+}
+
+.marker.green {
+  background: var(--marker-green);
+  border: 2px solid var(--marker-green);
+}
+
+.marker:hover {
+  transform: translateX(-50%) rotate(45deg) scale(1.2);
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Hover Tooltips Above Ruler */
+.marker .tooltip {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-45deg);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--text);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 20;
+}
+
+.marker:hover .tooltip {
+  opacity: 1;
+}
+
+/* Playhead - Full Height Through Tracks */
+.playhead {
+  position: absolute;
+  top: 0;
+  bottom: -140px; /* Extends through both tracks */
+  width: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 4px var(--cyan);
+  z-index: 15;
+  pointer-events: none;
+  transition: left 0.2s ease;
 }
 
 /* Tracks Container */
 .tracks {
   display: flex;
   flex-direction: column;
-  row-gap: 4px;
-}
-
-/* Track Styling */
-.clip {
-  height: 60px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  font-weight: 500;
-}
-
-.clip.v1 {
-  background: var(--v1);
-  border-radius: var(--clip-radius);
-  color: #000;
-}
-
-.clip.a1 {
-  background: var(--a1);
-  border-radius: var(--clip-radius);
-  position: relative;
-  overflow: hidden;
-  color: var(--wave);
-}
-
-.clip.a1 .waveform {
-  position: absolute;
-  inset: 6px 8px;
-  opacity: 0.9;
-  filter: hue-rotate(120deg) saturate(1.2) brightness(1.1);
-  background-image: url('/assets/waveform.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  border-radius: 3px;
+  gap: 4px; /* 4px gap between V1 and A1 */
 }
 
 /* Track Labels */
@@ -103,138 +177,88 @@
   left: -40px;
   top: 50%;
   transform: translateY(-50%);
-  font-weight: 700;
-  font-size: var(--font-base);
+  font-size: 12px;
+  font-weight: 600;
   color: var(--text);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
 
-/* Playhead */
-.playhead {
-  position: absolute;
-  width: 2px;
-  background: var(--cyan);
-  box-shadow: 0 0 12px var(--cyan);
-  height: calc(50px + 60px + 4px + 60px); /* ruler + V1 + gap + A1 */
-  top: 0;
-  transition: left 0.12s ease;
-  z-index: 10;
-}
-
-.playhead::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  width: 14px;
-  height: 14px;
-  background: var(--cyan);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  box-shadow: 0 0 8px var(--cyan);
-}
-
-/* Markers */
-.marker {
-  width: 12px;
-  height: 12px;
-  transform: rotate(45deg);
-  position: absolute;
-  top: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+/* Clip Base Styles */
+.clip {
+  position: relative;
+  height: 60px; /* Equal heights: V1 60px, A1 60px */
+  border-radius: 6px; /* Rounded caps for containment */
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
   cursor: pointer;
+  overflow: hidden;
   transition: all 0.2s ease;
-  z-index: 5;
 }
 
-.marker:hover {
-  transform: rotate(45deg) scale(1.2);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+/* V1 Video Track - Premiere Orange */
+.clip.v1 {
+  background: #d48806; /* Exact Premiere orange */
+  color: #000; /* Black text for contrast */
+  font-weight: 500;
 }
 
-.marker.green {
-  background: var(--marker-green);
+.clip.v1:hover {
+  background: #e6940a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(212, 136, 6, 0.3);
 }
 
-.marker.amber {
-  background: var(--marker-amber);
+/* A1 Audio Track - Dark Base with Waveform */
+.clip.a1 {
+  background: #0f1a16; /* Dark base for waveform readability */
+  color: var(--text);
+  font-weight: 500;
 }
 
-.marker.red {
-  background: var(--marker-red);
+.clip.a1:hover {
+  background: #1a2520;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(15, 26, 22, 0.5);
 }
 
-.marker.info {
-  background: var(--marker-info);
-}
-
-/* Hover Tooltips */
-.tooltip {
-  background: #0b0d10;
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+/* Waveform Overlay */
+.waveform {
   position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: var(--font-small);
-  white-space: nowrap;
-  opacity: 0;
+  inset: 6px 8px; /* Small inner padding */
+  background: url('/assets/waveform.png') no-repeat left center / 100% 100%;
+  /* Green tint via CSS filters */
+  filter: hue-rotate(120deg) saturate(1.2) brightness(1.1);
+  opacity: 0.9;
+  mix-blend-mode: normal;
   pointer-events: none;
-  transition: opacity 0.2s ease;
-  z-index: 1000;
-  margin-bottom: 8px;
+  border-radius: 3px;
 }
 
-.marker:hover .tooltip {
-  opacity: 1;
-}
-
-/* Navigation Controls */
-.timeline-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  justify-content: center;
-}
-
-.nav-btn {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.nav-btn:hover {
-  background: var(--cyan);
-  color: #000;
-  border-color: var(--cyan);
-}
-
-/* Responsive */
+/* Responsive Timeline */
 @media (max-width: 768px) {
   .timeline {
-    padding: 16px;
+    padding: 12px;
   }
   
   .master-clock {
-    font-size: var(--font-base);
-    padding: 6px 12px;
+    font-size: 12px;
+    padding: 3px 6px;
   }
   
   .clip {
     height: 50px;
+    padding: 0 8px;
   }
   
-  .playhead {
-    height: calc(50px + 50px + 4px + 50px);
+  .track-label {
+    left: -30px;
+    font-size: 10px;
+  }
+  
+  .marker {
+    width: 10px;
+    height: 10px;
   }
 }
 
