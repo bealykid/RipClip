@@ -1,0 +1,33 @@
+/* RipClip Global Styles - Emergency Stabilization */
+@import './css/ripclip-theme.css';
+@import './css/timeline-sync.css';
+
+/* Ensure consistent global styling */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Remove any conflicting styles */
+.bg-gray-50,
+.bg-white,
+.text-gray-900,
+.text-gray-600 {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Ensure all pages use dark theme */
+main {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+

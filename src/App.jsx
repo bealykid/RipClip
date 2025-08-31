@@ -501,6 +501,21 @@ const Reports = () => {
     setSelectedMoment(moment);
   };
 
+  const navigateToMarker = (direction) => {
+    const sortedMoments = [...mockData.moments].sort((a, b) => a.time - b.time);
+    const currentIndex = sortedMoments.findIndex(m => Math.abs(m.time - currentTime) < 0.5);
+    
+    if (direction === 'prev' && currentIndex > 0) {
+      const prevMoment = sortedMoments[currentIndex - 1];
+      setCurrentTime(prevMoment.time);
+      setSelectedMoment(prevMoment);
+    } else if (direction === 'next' && currentIndex < sortedMoments.length - 1) {
+      const nextMoment = sortedMoments[currentIndex + 1];
+      setCurrentTime(nextMoment.time);
+      setSelectedMoment(nextMoment);
+    }
+  };
+
   return (
     <div className="rc-main p-6 space-y-6">
       {/* Header */}
@@ -540,7 +555,7 @@ const Reports = () => {
       </div>
 
       {/* Professional Timeline - UI Sync Exact Specifications */}
-      <div className="timeline">
+      <div className="timeline" data-testid="timeline">
         {/* Master Clock */}
         <div className="master-clock">
           {formatTime(currentTime)}
@@ -1000,7 +1015,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="flex h-screen" style={{background: 'var(--bg)'}}>
+      <div className="flex h-screen" style={{background: 'var(--bg)'}} data-testid="app-shell">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         
         <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
