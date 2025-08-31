@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Search, Bell, User } from 'lucide-react';
-import './css/baseline-theme.css';
+import './css/ripclip-theme.css';
+import './css/timeline-sync.css';
+import './css/cards-visibility.css';
+import './css/reports-cards.css';
+import ReportsBoundary from './components/ReportsBoundary';
 
 // Mock data for consistent rendering
 const timelineData = {
@@ -27,8 +31,16 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/upload" element={<Upload />} />
             <Route path="/my-clips" element={<MyClips />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/reports-demo" element={<Reports />} />
+            <Route path="/reports" element={
+              <ReportsBoundary>
+                <Reports />
+              </ReportsBoundary>
+            } />
+            <Route path="/reports-demo" element={
+              <ReportsBoundary>
+                <Reports />
+              </ReportsBoundary>
+            } />
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </div>
