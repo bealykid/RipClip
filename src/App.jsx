@@ -716,42 +716,51 @@ const Reports = () => {
         </div>
       </div>
 
-      {/* Moment Cards - New Section */}
+      {/* Moment-by-Moment Cards - Exact Spec */}
       <div className="moment-cards-section">
-        <h3 className="text-lg font-bold mb-4">Moment Analysis</h3>
+        <h3 className="text-lg font-bold mb-4" style={{color: '#E6ECF3'}}>Moment-by-Moment Analysis</h3>
         <div className="moment-cards-grid">
-          {markers.map((marker) => (
-            <div 
-              key={marker?.id || Math.random()} 
-              className="moment-card"
-              onClick={() => {
-                try {
-                  setCurrentTime(marker?.time || 0);
-                  setSelectedMoment(marker);
-                } catch (error) {
-                  console.warn('Moment card click error:', error);
-                }
-              }}
-            >
-              <div className="moment-card-header">
-                <span className="moment-timestamp">{formatTime(marker?.time || 0)}</span>
-                <span className={`moment-type ${(marker?.type || 'unknown').toLowerCase()}`}>{marker?.type || 'Unknown'}</span>
-              </div>
-              <div className="moment-score-row">
-                <span className="moment-score-label">Score</span>
-                <div className="moment-score-chip">
-                  <div 
-                    className={`score-indicator ${
-                      (marker?.score || 0) >= 85 ? 'high' : 
-                      (marker?.score || 0) >= 70 ? 'medium' : 'low'
-                    }`}
-                  ></div>
-                  <span className="score-value">{marker?.score || 0}</span>
+          {(() => {
+            try {
+              return markers.map((marker) => (
+                <div 
+                  key={marker?.id || Math.random()} 
+                  className="moment-card-spec"
+                  data-marker-id={marker?.id}
+                  onClick={() => {
+                    try {
+                      setCurrentTime(marker?.time || 0);
+                      setSelectedMoment(marker);
+                    } catch (error) {
+                      console.warn('Moment card click error:', error);
+                    }
+                  }}
+                >
+                  <div className="moment-card-title-row">
+                    <div className="moment-card-left">
+                      <div className="moment-timecode">{formatTime(marker?.time || 0)}</div>
+                      <div className="moment-label">{marker?.title || marker?.label || `${marker?.type || 'Moment'} Analysis`}</div>
+                    </div>
+                    <div className="moment-score-chip-spec">
+                      <span className={`score-value-spec ${
+                        (marker?.score || 0) >= 80 ? 'green' : 
+                        (marker?.score || 0) >= 60 ? 'yellow' : 'red'
+                      }`}>{marker?.score || 0}</span>
+                    </div>
+                  </div>
+                  <div className="moment-type-pill">
+                    <span className={`type-pill ${(marker?.type || 'unknown').toLowerCase()}`}>
+                      {marker?.type || 'Unknown'}
+                    </span>
+                  </div>
+                  <p className="moment-note-spec">{marker?.note || marker?.description || `${marker?.type || 'Moment'} analysis for optimal editing decisions.`}</p>
                 </div>
-              </div>
-              <p className="moment-note">{marker?.note || `${marker?.type || 'Moment'} analysis for optimal editing decisions.`}</p>
-            </div>
-          ))}
+              ));
+            } catch (error) {
+              console.warn('Moment cards render error:', error);
+              return <div className="text-gray-400">Moment cards temporarily unavailable</div>;
+            }
+          })()}
         </div>
       </div>
 
