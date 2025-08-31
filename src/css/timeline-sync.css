@@ -155,7 +155,7 @@
 .playhead {
   position: absolute;
   top: 0;
-  bottom: -140px; /* Extends through both tracks */
+  height: calc(50px + 60px + 4px + 60px); /* ruler + V1 + gap + A1 */
   width: 2px;
   background: var(--cyan);
   box-shadow: 0 0 4px var(--cyan);
@@ -201,6 +201,7 @@
   background: #d48806; /* Exact Premiere orange */
   color: #000; /* Black text for contrast */
   font-weight: 500;
+  border-radius: 6px;
 }
 
 .clip.v1:hover {
@@ -214,6 +215,8 @@
   background: #0f1a16; /* Dark base for waveform readability */
   color: var(--text);
   font-weight: 500;
+  height: 60px;
+  border-radius: 6px;
 }
 
 .clip.a1:hover {
@@ -222,14 +225,14 @@
   box-shadow: 0 2px 8px rgba(15, 26, 22, 0.5);
 }
 
-/* Waveform Overlay */
+/* Waveform Overlay - Bright and Legible */
 .waveform {
   position: absolute;
   inset: 6px 8px; /* Small inner padding */
   background: url('/assets/waveform.png') no-repeat left center / 100% 100%;
-  /* Green tint via CSS filters */
-  filter: hue-rotate(120deg) saturate(1.2) brightness(1.1);
-  opacity: 0.9;
+  /* Bright green tint for visibility */
+  opacity: 0.95;
+  filter: hue-rotate(120deg) saturate(1.15) brightness(1.25);
   mix-blend-mode: normal;
   pointer-events: none;
   border-radius: 3px;
