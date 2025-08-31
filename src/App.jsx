@@ -40,6 +40,7 @@ import './App.css';
 import './css/ripclip-theme.css';
 import './css/timeline-sync.css';
 import ripclipLogo from './assets/ripclip-logo.png';
+import reportsMockData from './data/reportsMock.json';
 
 // Enhanced mock data with all latest features
 const mockData = {
@@ -486,35 +487,64 @@ const Dashboard = () => {
   );
 };
 
-// Enhanced Reports Component with Professional Timeline
+// Bulletproof Reports Component - Always Renders with Mock Data
 const Reports = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [selectedMoment, setSelectedMoment] = useState(null);
+
+  // Use embedded mock data - no network calls, no dependencies
+  const clipData = reportsMockData?.clipMeta || {
+    filename: "demo-clip-001.mp4",
+    ripScore: 90,
+    duration: "30s",
+    resolution: "1080p"
+  };
+
+  const metrics = reportsMockData?.metrics || {
+    hookStrength: 85,
+    pacingScore: 78,
+    captionQuality: 92,
+    audioIssues: 67
+  };
+
+  const timelineData = reportsMockData?.timeline || {
+    duration: 30,
+    moments: []
+  };
+
+  const editorialNotes = reportsMockData?.editorialNotes || {
+    summary: "Analysis loading...",
+    optimalCut: "—",
+    keyInsights: []
+  };
+
+  const priorityFixes = reportsMockData?.priorityFixes || [];
 
   const handleTimelineClick = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const percentage = x / rect.width;
-    const time = Math.round(percentage * timelineData.duration);
+    const time = Math.round(percentage * (timelineData.duration || 30));
     setCurrentTime(time);
   };
 
   const handleMarkerClick = (moment) => {
-    setCurrentTime(moment.time);
+    setCurrentTime(moment.time || 0);
     setSelectedMoment(moment);
   };
 
   const navigateToMarker = (direction) => {
-    const sortedMoments = [...mockData.moments].sort((a, b) => a.time - b.time);
-    const currentIndex = sortedMoments.findIndex(m => Math.abs(m.time - currentTime) < 0.5);
+    const moments = timelineData.moments || [];
+    const sortedMoments = [...moments].sort((a, b) => (a.time || 0) - (b.time || 0));
+    const currentIndex = sortedMoments.findIndex(m => Math.abs((m.time || 0) - currentTime) < 0.5);
     
     if (direction === 'prev' && currentIndex > 0) {
       const prevMoment = sortedMoments[currentIndex - 1];
-      setCurrentTime(prevMoment.time);
+      setCurrentTime(prevMoment.time || 0);
       setSelectedMoment(prevMoment);
     } else if (direction === 'next' && currentIndex < sortedMoments.length - 1) {
       const nextMoment = sortedMoments[currentIndex + 1];
-      setCurrentTime(nextMoment.time);
+      setCurrentTime(nextMoment.time || 0);
       setSelectedMoment(nextMoment);
     }
   };
@@ -525,7 +555,7 @@ const Reports = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold" style={{color: 'var(--text)'}}>Clip Doctor - Waveform Integrated</h1>
-          <p className="text-muted">demo-clip-001.mp4 • RipScore: 90 • Duration: 30s • Resolution: 1080p</p>
+          <p className="text-muted">{clipData.filename} • RipScore: {clipData.ripScore} • Duration: {clipData.duration} • Resolution: {clipData.resolution}</p>
         </div>
       </div>
 
@@ -533,25 +563,25 @@ const Reports = () => {
       <div className="grid grid-cols-4 gap-6">
         <div className="rc-card p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold" style={{color: 'var(--marker-green)'}}>85</div>
+            <div className="text-3xl font-bold" style={{color: 'var(--marker-green)'}}>{metrics.hookStrength}</div>
             <div className="text-small text-muted font-medium">Hook Strength</div>
           </div>
         </div>
         <div className="rc-card p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold" style={{color: 'var(--marker-amber)'}}>78</div>
+            <div className="text-3xl font-bold" style={{color: 'var(--marker-amber)'}}>{metrics.pacingScore}</div>
             <div className="text-small text-muted font-medium">Pacing Score</div>
           </div>
         </div>
         <div className="rc-card p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold" style={{color: 'var(--marker-green)'}}>92</div>
+            <div className="text-3xl font-bold" style={{color: 'var(--marker-green)'}}>{metrics.captionQuality}</div>
             <div className="text-small text-muted font-medium">Caption Quality</div>
           </div>
         </div>
         <div className="rc-card p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold" style={{color: 'var(--marker-red)'}}>67</div>
+            <div className="text-3xl font-bold" style={{color: 'var(--marker-red)'}}>{metrics.audioIssues}</div>
             <div className="text-small text-muted font-medium">Audio Issues</div>
           </div>
         </div>
@@ -606,7 +636,7 @@ const Reports = () => {
           ))}
 
           {/* Timeline Markers */}
-          {mockData.moments.map((moment) => (
+          {(timelineData.moments || []).map((moment) => (
             <div
               key={moment.id}
               className={`marker ${
@@ -614,15 +644,15 @@ const Reports = () => {
                 moment.priority === 'medium' ? 'amber' : 
                 'green'
               }`}
-              style={{ left: `${(moment.time / 30) * 100}%` }}
+              style={{ left: `${((moment.time || 0) / (timelineData.duration || 30)) * 100}%` }}
               onClick={(e) => {
                 e.stopPropagation();
-                setCurrentTime(moment.time);
+                setCurrentTime(moment.time || 0);
                 setSelectedMoment(moment);
               }}
             >
               <div className="tooltip">
-                {formatTime(moment.time)} - {moment.title}
+                {formatTime(moment.time || 0)} - {moment.title || 'Moment'}
               </div>
             </div>
           ))}
@@ -630,7 +660,7 @@ const Reports = () => {
           {/* Playhead */}
           <div 
             className="playhead" 
-            style={{ left: `${(currentTime / 30) * 100}%` }}
+            style={{ left: `${(currentTime / (timelineData.duration || 30)) * 100}%` }}
           />
         </div>
 
@@ -640,7 +670,7 @@ const Reports = () => {
           <div className="relative">
             <div className="track-label">V1</div>
             <div className="clip v1" onClick={handleTimelineClick}>
-              <span className="font-medium text-sm">demo-clip-001.mp4</span>
+              <span className="font-medium text-sm">{clipData.filename}</span>
             </div>
           </div>
 
@@ -649,7 +679,7 @@ const Reports = () => {
             <div className="track-label">A1</div>
             <div className="clip a1" onClick={handleTimelineClick}>
               <div className="waveform"></div>
-              <span className="font-medium text-sm relative z-10">demo-clip-001.wav</span>
+              <span className="font-medium text-sm relative z-10">{clipData.filename.replace('.mp4', '.wav')}</span>
             </div>
           </div>
         </div>
@@ -657,74 +687,55 @@ const Reports = () => {
 
       {/* Moment Analysis */}
       {selectedMoment && (
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-          <div className="flex items-start justify-between mb-4">
+        <div className="rc-card p-6">
+          <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text)'}}>Moment Analysis</h3>
+          <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-bold text-gray-900">{selectedMoment.title}</h3>
-              <p className="text-sm text-gray-600">{formatTime(selectedMoment.time)} • {selectedMoment.track} track</p>
+              <h4 className="font-medium" style={{color: 'var(--text)'}}>{selectedMoment.title}</h4>
+              <p className="text-muted text-sm">{formatTime(selectedMoment.time || 0)} - {selectedMoment.type}</p>
             </div>
-            <div className="text-right">
-              <div className="text-2xl font-bold" style={{ color: getScoreColor(selectedMoment.score) }}>
-                {selectedMoment.score}
-              </div>
-              <div className="text-sm text-gray-600">Score</div>
+            <p className="text-muted">{selectedMoment.description}</p>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-muted">Score:</span>
+              <span className="font-bold" style={{color: getScoreColor(selectedMoment.score || 0)}}>{selectedMoment.score || 0}</span>
             </div>
-          </div>
-          <p className="text-gray-700 mb-4">{selectedMoment.description}</p>
-          <div className="flex items-center space-x-4">
-            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-              selectedMoment.priority === 'high' ? 'bg-red-100 text-red-800' :
-              selectedMoment.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-              'bg-green-100 text-green-800'
-            }`}>
-              {selectedMoment.priority} priority
-            </span>
-            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-              selectedMoment.type === 'hook' ? 'bg-yellow-100 text-yellow-800' :
-              selectedMoment.type === 'pacing' ? 'bg-red-100 text-red-800' :
-              selectedMoment.type === 'engagement' ? 'bg-green-100 text-green-800' :
-              selectedMoment.type === 'audio' ? 'bg-blue-100 text-blue-800' :
-              'bg-purple-100 text-purple-800'
-            }`}>
-              {selectedMoment.type}
-            </span>
           </div>
         </div>
       )}
 
       {/* AI Editorial Notes */}
-      <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-        <h3 className="text-lg font-bold text-green-800 mb-4">AI Editorial Notes</h3>
-        <div className="space-y-3">
-          <p className="text-green-700">
-            <strong>Optimal Cut:</strong> 22s from current 30s
-          </p>
-          <p className="text-green-700">
-            Your hook shows strong potential with compelling visual storytelling, but the pacing could benefit from tighter editing in the first 8 seconds. The narrative arc builds effectively, though some transitions feel rushed around the 15-second mark. Consider extending key moments for better emotional impact while maintaining the overall energy that makes this content engaging.
-          </p>
+      <div className="rc-card p-6" style={{background: 'var(--marker-green)', opacity: 0.1}}>
+        <div className="rc-card p-6" style={{background: 'var(--panel)'}}>
+          <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text)'}}>AI Editorial Notes</h3>
+          <p className="text-muted mb-4">{editorialNotes.summary}</p>
+          
+          <div className="rc-card p-4" style={{background: 'var(--marker-green)', opacity: 0.1}}>
+            <div className="rc-card p-4" style={{background: 'var(--panel)'}}>
+              <h4 className="font-medium mb-2" style={{color: 'var(--text)'}}>Optimal Cut</h4>
+              <p className="text-2xl font-bold" style={{color: 'var(--marker-green)'}}>{editorialNotes.optimalCut}</p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Priority Fixes */}
-      <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
-        <h3 className="text-lg font-bold text-yellow-800 mb-4">Priority Fixes</h3>
+      <div className="rc-card p-6">
+        <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text)'}}>Priority Fixes</h3>
         <div className="space-y-3">
-          <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-5 h-5 text-yellow-600" />
-            <span className="text-yellow-700">Tighten hook opening by 2 seconds (00:03 → 00:01)</span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-5 h-5 text-yellow-600" />
-            <span className="text-yellow-700">Smooth transition at 00:15 with 0.5s crossfade</span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-5 h-5 text-yellow-600" />
-            <span className="text-yellow-700">Boost audio levels by 3dB from 00:08-00:12</span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-5 h-5 text-yellow-600" />
-            <span className="text-yellow-700">Add 1s pause before final CTA at 00:28</span>
-          </div>
+          {priorityFixes.map((fix) => (
+            <div key={fix.id} className="flex items-center space-x-3 p-3 rounded-lg" style={{background: 'var(--panel)', border: '1px solid var(--border)'}}>
+              <div className={`w-2 h-2 rounded-full ${
+                fix.impact === 'high' ? 'bg-red-500' : 
+                fix.impact === 'medium' ? 'bg-yellow-500' : 
+                'bg-green-500'
+              }`}></div>
+              <div className="flex-1">
+                <p className="font-medium" style={{color: 'var(--text)'}}>{fix.title}</p>
+                <p className="text-small text-muted">{fix.timeRange}</p>
+              </div>
+              <div className="text-small text-muted">{fix.effort} effort</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -1030,6 +1041,7 @@ const App = () => {
               <Route path="/upload" element={<UploadPage />} />
               <Route path="/clips" element={<MyClips />} />
               <Route path="/reports" element={<Reports />} />
+              <Route path="/reports-demo" element={<Reports />} />
               <Route path="/settings" element={<SettingsPage />} />
             </Routes>
           </main>

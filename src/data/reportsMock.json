@@ -1,0 +1,161 @@
+{
+  "clipMeta": {
+    "filename": "demo-clip-001.mp4",
+    "ripScore": 90,
+    "duration": "30s",
+    "resolution": "1080p",
+    "uploadDate": "2024-08-30",
+    "platform": "TikTok",
+    "views": 125400,
+    "engagement": 8.7
+  },
+  "metrics": {
+    "hookStrength": 85,
+    "pacingScore": 78,
+    "captionQuality": 92,
+    "audioIssues": 67
+  },
+  "timeline": {
+    "duration": 30,
+    "moments": [
+      {
+        "id": 1,
+        "time": 2,
+        "title": "Hook Opening",
+        "description": "Strong visual hook but could be tighter. Consider cutting 2 seconds from the opening sequence.",
+        "score": 78,
+        "type": "hook",
+        "track": "video",
+        "priority": "high"
+      },
+      {
+        "id": 2,
+        "time": 8,
+        "title": "Pacing Slow",
+        "description": "Energy dips here. The transition feels sluggish and could benefit from faster cuts.",
+        "score": 45,
+        "type": "pacing",
+        "track": "video",
+        "priority": "medium"
+      },
+      {
+        "id": 3,
+        "time": 15,
+        "title": "Strong Engagement",
+        "description": "Excellent storytelling moment. The visual and audio sync perfectly here.",
+        "score": 92,
+        "type": "engagement",
+        "track": "both",
+        "priority": "low"
+      },
+      {
+        "id": 4,
+        "time": 22,
+        "title": "Audio Levels",
+        "description": "Audio levels drop slightly. Consider boosting by 3dB for consistency.",
+        "score": 67,
+        "type": "audio",
+        "track": "audio",
+        "priority": "medium"
+      },
+      {
+        "id": 5,
+        "time": 28,
+        "title": "CTA Timing",
+        "description": "Call-to-action comes too quickly. Add 1 second pause before final message.",
+        "score": 73,
+        "type": "cta",
+        "track": "video",
+        "priority": "high"
+      }
+    ]
+  },
+  "editorialNotes": {
+    "summary": "Your hook shows strong potential with compelling visual storytelling, but the pacing could benefit from tighter editing in the first 8 seconds. The narrative arc builds effectively, though some transitions feel rushed around the 15-second mark. Consider extending key moments for better emotional impact while maintaining the overall energy that makes this content engaging.",
+    "optimalCut": "22s from current 30s",
+    "keyInsights": [
+      "Tighten hook opening by 2 seconds (00:03 → 00:01)",
+      "Smooth transition at 00:15 with 0.5s crossfade", 
+      "Boost audio levels by 3dB from 00:08-00:12",
+      "Add 1s pause before final CTA at 00:28"
+    ]
+  },
+  "priorityFixes": [
+    {
+      "id": 1,
+      "title": "Tighten hook opening by 2 seconds",
+      "timeRange": "00:03 → 00:01",
+      "impact": "high",
+      "effort": "low"
+    },
+    {
+      "id": 2,
+      "title": "Smooth transition at 00:15 with 0.5s crossfade",
+      "timeRange": "00:15",
+      "impact": "medium",
+      "effort": "medium"
+    },
+    {
+      "id": 3,
+      "title": "Boost audio levels by 3dB",
+      "timeRange": "00:08-00:12",
+      "impact": "medium",
+      "effort": "low"
+    },
+    {
+      "id": 4,
+      "title": "Add 1s pause before final CTA",
+      "timeRange": "00:28",
+      "impact": "high",
+      "effort": "low"
+    }
+  ],
+  "momentAnalysis": [
+    {
+      "id": 1,
+      "timestamp": "00:08:02:00",
+      "title": "Hook Opening",
+      "score": 78,
+      "description": "Strong visual hook but could be tighter. Consider cutting 2 seconds from the opening sequence.",
+      "category": "pacing",
+      "priority": "high"
+    },
+    {
+      "id": 2,
+      "timestamp": "00:08:08:00", 
+      "title": "Pacing Slow",
+      "score": 45,
+      "description": "Energy dips here. The transition feels sluggish and could benefit from faster cuts.",
+      "category": "pacing",
+      "priority": "medium"
+    },
+    {
+      "id": 3,
+      "timestamp": "00:08:15:00",
+      "title": "Strong Engagement", 
+      "score": 92,
+      "description": "Excellent storytelling moment. The visual and audio sync perfectly here.",
+      "category": "engagement",
+      "priority": "low"
+    },
+    {
+      "id": 4,
+      "timestamp": "00:08:22:00",
+      "title": "Audio Levels",
+      "score": 67, 
+      "description": "Audio levels drop slightly. Consider boosting by 3dB for consistency.",
+      "category": "audio",
+      "priority": "medium"
+    },
+    {
+      "id": 5,
+      "timestamp": "00:08:28:00",
+      "title": "CTA Timing",
+      "score": 73,
+      "description": "Call-to-action comes too quickly. Add 1 second pause before final message.",
+      "category": "timing",
+      "priority": "high"
+    }
+  ]
+}
+
